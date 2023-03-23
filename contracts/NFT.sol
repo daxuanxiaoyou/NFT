@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract NFT is ERC721, ERC721Enumerable, Pausable {
+contract NFT is ERC721Enumerable, Pausable {
     using Strings for uint256;
     string private baseURI;
     address private _admin;
@@ -99,21 +98,5 @@ contract NFT is ERC721, ERC721Enumerable, Pausable {
         _requireMinted(tokenId);
         return string(abi.encodePacked(baseURI, tokenId.toString()));
     }
-
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
-        internal
-        whenNotPaused
-        override(ERC721, ERC721Enumerable)
-    {
-        super._beforeTokenTransfer(from, to, tokenId, batchSize);
-    }
-
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC721, ERC721Enumerable)
-        returns (bool)
-    {
-        return super.supportsInterface(interfaceId);
-    }
 }
+
